@@ -61,24 +61,22 @@ while (cap.isOpened()):
         # {u's': 0, u'gidx': 9961, u'ts': 416711002, u'gp3': [45.04, 173.8, 464.21]}
         # -----------
         if data_gp['ts'] > 0:
-            np.save(
-                file_path + '/orbbec_gaze_2D/test' + str(ns) + '{:.3f}'.format(t),
-                data_gp['gp'])
+            gaze_2d_name = '{}/test{}/orbbec_gaze_2D/{:.3f}.npy'.format(file_path, ns, t)
+            np.save(gaze_2d_name, data_gp['gp'])
+
             cv2.circle(frame, (int(data_gp['gp'][0] * width), int(data_gp['gp'][1] * height)), 30, (0, 255, 0), 10)
             cv2.namedWindow('Tobii Pro Glasses 2 - Live Scene', cv2.WINDOW_NORMAL)
             cv2.resizeWindow('Tobii Pro Glasses 2 - Live Scene', 960, 540)
             cv2.imshow('Tobii Pro Glasses 2 - Live Scene', frame)
-            cv2.imwrite(
-                file_path + '/glasses_frame/test' + str(ns) + '/' + '{:.3f}'.format(t) + '.jpg',
-                cv2.resize(frame, (192, 108)))
+            glasses_frame_name = '{}/test{}/glasses_frame/{:.3f}.jpg'.format(file_path, ns, t)
+            cv2.imwrite(glasses_frame_name, cv2.resize(frame, (192, 108)))
+
             print('gaze_saved')
         if data_gp_3D['ts'] > 0:
-            np.save(
-                file_path + '/orbbec_gaze_3D/test' + str(ns) + '/{:.3f}.npy'.format(t),
-                data_gp_3D['gp3'])
+            gaze_3d_name = '{}/test{}/orbbec_gaze_3D/{:.3f}.npy'.format(file_path, ns, t)
+            np.save(gaze_3d_name, data_gp_3D['gp3'])
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-
     else:
         break
 

@@ -108,14 +108,12 @@ def read_and_save_data(cloud_msg, rgb_msg, bridge):
         rgb_image = bridge.imgmsg_to_cv2(rgb_msg, "bgr8")
         cloud = pointcloud2_to_xyz_array(cloud_msg)
         cloud[np.isnan(cloud)] = 0
-        cv2.imwrite(
-            file_path + '/orbbec_frame/test' + str(ns) + '/{:.3f}.jpg'.format(t),
-            rgb_image)
-        # np.save(
-        #     file_path + '/orbbec_frame_npy/test' + str(ns) + '/{}.npy'.format(str(t)),
-        #     cloud)
+        orbbec_rgb_name = '{}/test{}/orbbec_rgb/{:.3f}.jpg'.format(file_path, ns, t)
+        cv2.imwrite(orbbec_rgb_name, rgb_image)
+
         img_depth = (cloud[..., 2]*1000).astype(np.uint16)
-        cv2.imwrite(file_path + '/orbbec_frame/test' + str(ns) + '/{:.3f}.png'.format(t), img_depth)
+        orbbec_depth_name = '{}/test{}/orbbec_depth/{:.3f}.png'.format(file_path, ns, t)
+        cv2.imwrite(orbbec_depth_name, img_depth)
 
     except CvBridgeError as e:
         print(e)

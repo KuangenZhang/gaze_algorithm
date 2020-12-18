@@ -1,5 +1,7 @@
+
 #Customized ignore
 test*/
+3_walking*
 *.idea*
 
 

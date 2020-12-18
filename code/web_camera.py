@@ -20,7 +20,8 @@ while(1):
         ret,frame = cap_list[i].read()  #ret:True/False,代表有没有读到图片  frame:当前截取一帧的图片
         if ret:
             cv2.imshow("web camera {}".format(i + 1),frame)
-            cv2.imwrite(file_path + '/web_camera_{}/test'.format(i+1) + str(ns) + '/' + '{:.3f}'.format(t) + '.jpg', frame)
+            web_camera_img_name = '{}/test{}/web_camera_{}/{:.3f}.jpg'.format(file_path, ns, i+1, t)
+            cv2.imwrite(web_camera_img_name, frame)
             print('web camera saved')
     if (cv2.waitKey(1) & 0xFF) == ord('q'):
         break
